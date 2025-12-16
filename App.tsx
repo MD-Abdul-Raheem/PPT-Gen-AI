@@ -216,22 +216,15 @@ const App: React.FC = () => {
                             <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
                                 <Layout size={14} /> Slide Count
                             </label>
-                            <div className="relative">
-                                <select 
-                                    value={settings.slideCount}
-                                    onChange={(e) => setSettings({...settings, slideCount: parseInt(e.target.value)})}
-                                    className="w-full appearance-none pl-4 pr-8 py-3 bg-surface-50 hover:bg-surface-100 rounded-xl border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-primary-500 outline-none transition-all text-sm font-medium text-slate-700 cursor-pointer"
-                                    disabled={isGenerating}
-                                >
-                                    <option value={5}>5 Slides</option>
-                                    <option value={8}>8 Slides</option>
-                                    <option value={12}>12 Slides</option>
-                                    <option value={15}>15 Slides</option>
-                                </select>
-                                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                                </div>
-                            </div>
+                            <input 
+                                type="number"
+                                min="3"
+                                max="20"
+                                value={settings.slideCount}
+                                onChange={(e) => setSettings({...settings, slideCount: parseInt(e.target.value) || 8})}
+                                className="w-full pl-4 pr-4 py-3 bg-surface-50 hover:bg-surface-100 rounded-xl border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-primary-500 outline-none transition-all text-sm font-medium text-slate-700"
+                                disabled={isGenerating}
+                            />
                         </div>
                     </div>
 
