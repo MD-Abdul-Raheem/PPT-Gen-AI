@@ -22,32 +22,39 @@ export const generatePresentationContent = async (
   const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
   const prompt = `
-    You are a professional presentation designer.
-    Create a PowerPoint presentation about: "${topic}".
-    Context and Details: "${detailedInput}".
+    You are an expert presentation designer with 10+ years creating executive-level presentations.
     
-    The presentation should have exactly ${slideCount} slides.
-    The visual theme will be "${themeName}", so write content that fits this tone.
+    Topic: "${topic}"
+    Context: "${detailedInput}"
+    Slides: ${slideCount}
+    Theme: "${themeName}"
     
-    Return the response in strict JSON format matching the schema.
+    STRUCTURE:
+    1. Opening: Powerful title with engaging subtitle
+    2. Executive Summary (1 slide)
+    3. Main Content: Logical sections with clear narrative
+    4. Data/Evidence: Statistics, facts, case studies
+    5. Conclusion: Strong closing with call-to-action
     
-    Structure:
-    1. Title Slide (Intro)
-    2. Introduction/Agenda
-    3. Main Content Slides (broken down logically)
-    4. Conclusion/Summary
+    CONTENT RULES:
+    - Action-oriented, concise language
+    - 8-12 words per bullet point maximum
+    - Include specific numbers/percentages/data
+    - Use power words and compelling phrases
+    - 3-5 bullets per slide (never exceed 6)
+    - ONE clear message per slide
     
-    For each slide, provide:
+    For each slide:
     - type: 'title', 'content', 'section', or 'conclusion'
-    - title: The headline of the slide
-    - content: An array of strings (bullet points). Limit to 4-6 points per slide for readability.
-    - speakerNotes: A short paragraph for the presenter.
-    - imagePrompt: A detailed, descriptive visual prompt to generate a high-quality, professional, photorealistic or illustration-style image relevant to this specific slide. Describe the scene, objects, lighting, and style. Do NOT include instructions like "Create an image of". Just describe the visual content directly (e.g., "A modern office building with glass facade under a blue sky").
+    - title: Compelling headline (5-8 words)
+    - content: Concise, impactful bullet points
+    - speakerNotes: Professional notes with key talking points and statistics
+    - imagePrompt: Professional visual description with subject, composition, lighting, color palette, mood, style. Example: "Modern glass office building at sunset, warm golden lighting, professional atmosphere, clean lines, corporate photography style"
   `;
 
   try {
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.0-flash-exp',
       contents: prompt,
       config: {
         responseMimeType: "application/json",
@@ -115,7 +122,7 @@ export const generateSlideImage = async (imagePrompt: string): Promise<string | 
     
     try {
         const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash-image',
+            model: 'gemini-2.0-flash-exp',
             contents: imagePrompt, // Pass string directly
             config: {
                 imageConfig: {
