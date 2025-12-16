@@ -5,7 +5,7 @@ import { generatePresentationContent, generateSlideImage } from './services/gemi
 import { generatePptx } from './services/pptxService';
 import InputSection from './components/InputSection';
 import PreviewSection from './components/PreviewSection';
-import { Download, Sparkles, RefreshCw, Presentation, Layout, Play, X, ChevronLeft, ChevronRight, Image as ImageIcon, Info } from 'lucide-react';
+import { Download, Sparkles, RefreshCw, Presentation, Layout, Play, X, ChevronLeft, ChevronRight, Image as ImageIcon, Info, Palette } from 'lucide-react';
 import AboutPage from './components/AboutPage';
 
 const App: React.FC = () => {
@@ -37,12 +37,10 @@ const App: React.FC = () => {
     setError(null);
     setPresentation(null);
 
-    const randomTheme = THEMES[Math.floor(Math.random() * THEMES.length)];
     const randomTransition = TRANSITION_OPTIONS[Math.floor(Math.random() * TRANSITION_OPTIONS.length)].value;
     
     setSettings(prev => ({
         ...prev,
-        themeId: randomTheme.id,
         transition: randomTransition
     }));
 
@@ -225,6 +223,21 @@ const App: React.FC = () => {
                                 className="w-full pl-4 pr-4 py-3 bg-surface-50 hover:bg-surface-100 rounded-xl border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-primary-500 outline-none transition-all text-sm font-medium text-slate-700"
                                 disabled={isGenerating}
                             />
+                        </div>
+                        <div className="space-y-3">
+                            <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                <Palette size={14} /> Theme
+                            </label>
+                            <select 
+                                value={settings.themeId}
+                                onChange={(e) => setSettings({...settings, themeId: e.target.value as ThemeId})}
+                                className="w-full appearance-none pl-4 pr-8 py-3 bg-surface-50 hover:bg-surface-100 rounded-xl border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-primary-500 outline-none transition-all text-sm font-medium text-slate-700 cursor-pointer"
+                                disabled={isGenerating}
+                            >
+                                {THEMES.map(theme => (
+                                    <option key={theme.id} value={theme.id}>{theme.name}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 

@@ -26,7 +26,7 @@ export const generatePresentationContent = async (
   try {
     const genAI = new GoogleGenerativeAI(API_KEY);
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       generationConfig: {
         temperature: 0.8,
         topK: 40,
@@ -105,7 +105,7 @@ export const generateSlideImage = async (imagePrompt: string): Promise<string | 
     
     try {
         const genAI = new GoogleGenerativeAI(API_KEY);
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-image' });
         
         const result = await model.generateContent([
             { text: `Generate a professional business image: ${imagePrompt}` }
