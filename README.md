@@ -64,8 +64,8 @@ View your app in AI Studio: https://ai.studio/apps/drive/1pm13qLyGleT7qazuh1UMPU
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-repo-url>
-cd ppt-gen-ai
+git clone https://github.com/MD-Abdul-Raheem/PPT-Gen-AI.git
+cd PPT-Gen-AI
 ```
 
 ### 2. Install Dependencies
