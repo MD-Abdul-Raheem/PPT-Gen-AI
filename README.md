@@ -245,5 +245,3 @@ For issues and questions:
 - Check the [Google AI Studio documentation](https://ai.google.dev/)
 
 ---
-
-Built with ❤️ using Google AI Studio • Version 1.0.0
