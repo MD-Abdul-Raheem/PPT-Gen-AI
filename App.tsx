@@ -45,11 +45,12 @@ const App: React.FC = () => {
     }));
 
     try {
+      const selectedTheme = THEMES.find(t => t.id === settings.themeId) || THEMES[0];
       const result = await generatePresentationContent(
         topic, 
         description, 
         settings.slideCount, 
-        randomTheme.name
+        selectedTheme.name
       );
       
       setPresentation({
@@ -226,18 +227,24 @@ const App: React.FC = () => {
                         </div>
                         <div className="space-y-3">
                             <label className="flex items-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-wider">
-                                <Palette size={14} /> Theme
+                                <Palette size={14} /> Color Scheme
                             </label>
-                            <select 
-                                value={settings.themeId}
-                                onChange={(e) => setSettings({...settings, themeId: e.target.value as ThemeId})}
-                                className="w-full appearance-none pl-4 pr-8 py-3 bg-surface-50 hover:bg-surface-100 rounded-xl border-0 ring-1 ring-slate-200 focus:ring-2 focus:ring-primary-500 outline-none transition-all text-sm font-medium text-slate-700 cursor-pointer"
-                                disabled={isGenerating}
-                            >
+                            <div className="grid grid-cols-6 gap-2">
                                 {THEMES.map(theme => (
-                                    <option key={theme.id} value={theme.id}>{theme.name}</option>
+                                    <button
+                                        key={theme.id}
+                                        onClick={() => setSettings({...settings, themeId: theme.id})}
+                                        disabled={isGenerating}
+                                        className={`h-12 rounded-lg border-2 transition-all ${
+                                            settings.themeId === theme.id 
+                                            ? 'border-primary-500 ring-2 ring-primary-200' 
+                                            : 'border-slate-200 hover:border-slate-300'
+                                        }`}
+                                        style={{ backgroundColor: theme.colors.primary }}
+                                        title={theme.name}
+                                    />
                                 ))}
-                            </select>
+                            </div>
                         </div>
                     </div>
 
